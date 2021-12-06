@@ -9,9 +9,15 @@ const CREATE_RECORD_MUTATION = gql`
     $totalDeaths: Int!
     $totalPatients: Int!
   ) {
-    makeRecord(cname: $cname, diseaseCode: $diseaseCode, email: $email, totalDeaths: $totalDeaths, totalPatients: $totalPatients){
-        status
-      }
+    makeRecord(
+      cname: $cname
+      diseaseCode: $diseaseCode
+      email: $email
+      totalDeaths: $totalDeaths
+      totalPatients: $totalPatients
+    ) {
+      status
+    }
   }
 `;
 const CreateRecord = () => {
@@ -21,18 +27,17 @@ const CreateRecord = () => {
     email: 'daniel.schneider@mail.com',
     totalDeaths: 100,
     totalPatients: 10000,
-  })
-  
+  });
+
   const [createRecord] = useMutation(CREATE_RECORD_MUTATION, {
     variables: {
-        cname: formState.cname,
-        diseaseCode: formState.diseaseCode,
-        email: formState.email,
-        totalDeaths: formState.totalDeaths,
-        totalPatients: formState.totalPatients,
-    }
+      cname: formState.cname,
+      diseaseCode: formState.diseaseCode,
+      email: formState.email,
+      totalDeaths: formState.totalDeaths,
+      totalPatients: formState.totalPatients,
+    },
   });
-  
 
   return (
     <div>
@@ -49,7 +54,7 @@ const CreateRecord = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                cname: e.target.value
+                cname: e.target.value,
               })
             }
             type="text"
@@ -61,7 +66,7 @@ const CreateRecord = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                diseaseCode: e.target.value
+                diseaseCode: e.target.value,
               })
             }
             type="text"
@@ -73,7 +78,7 @@ const CreateRecord = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                totalDeaths: e.target.value
+                totalDeaths: e.target.value,
               })
             }
             type="number"
@@ -85,7 +90,7 @@ const CreateRecord = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                totalPatients: e.target.value
+                totalPatients: e.target.value,
               })
             }
             type="number"
@@ -97,7 +102,7 @@ const CreateRecord = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                email: e.target.value
+                email: e.target.value,
               })
             }
             type="text"
