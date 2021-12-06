@@ -26,7 +26,7 @@ const CREATE_SERVANT_MUTATION = gql`
     }
   }
 `;
-const CreateRecord = () => {
+const CreateServant = () => {
   const [formState, setFormState] = useState({
     email: 'madiabsadykov@gmail.com',
     password: 'password',
@@ -38,7 +38,7 @@ const CreateRecord = () => {
     dep: 'Dep1',
   });
 
-  const [createRecord] = useMutation(CREATE_RECORD_MUTATION, {
+  const [createServant] = useMutation(CREATE_SERVANT_MUTATION, {
     variables: {
       email: formState.email,
       password: formState.password,
@@ -56,7 +56,7 @@ const CreateRecord = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          createRecord();
+          createServant();
         }}
       >
         <div className="flex flex-column mt3">

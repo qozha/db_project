@@ -5,11 +5,11 @@ const Header = () => {
   return (
     <div className="flex pa1 justify-between nowrap orange">
       <div className="flex flex-fixed black">
-        <Link to="/" className="fw7 mr1 no-underline black">
+        <Link to="/overview" className="fw7 mr1 no-underline black">
           Overview
         </Link>
         <div className="ml1">|</div>
-        <Link to="/" className="ml1 no-underline black">
+        <Link to="/salary" className="ml1 no-underline black">
           Change salary
         </Link>
         <div className="ml1">|</div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const LOGIN_MUTATION = gql`
   mutation loginAdmin($email: String!, $password: String!) {
@@ -11,7 +11,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 const Login = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     login: true,
     email: '',
@@ -24,63 +24,51 @@ const Login = () => {
       password: formState.password,
     },
     onCompleted: ({ login }) => {
-      localStorage.setItem(AUTH_TOKEN, login.token);
-      history.push('/');
+      navigate('/');
     },
   });
 
   return (
     <div>
-      <h4 className="mv3">{login ? 'Login' : 'Sign Up'}</h4>
+      <h4 className="mv3">
+        Login
+      </h4>
       <div className="flex flex-column">
-        {!formState.login && (
-          <input
-            value={formState.name}
-            onChange={(e) =>
-              setFormState({
-                ...formState,
-                name: e.target.value,
-              })
-            }
-            type="text"
-            placeholder="Your name"
-          />
-        )}
+        {!formState.login}
         <input
           value={formState.email}
           onChange={(e) =>
             setFormState({
               ...formState,
-              email: e.target.value,
+              email: e.target.value
             })
           }
           type="text"
           placeholder="Your email address"
         />
+        <input
+          value={formState.password}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              password: e.target.value
+            })
+          }
+          type="password"
+          placeholder="Your password"
+        />
       </div>
       <div className="flex mt3">
         <button
           className="pointer mr2 button"
-          onClick={formState.login}
+          onClick={login}
         >
-          {formState.login}
-        </button>
-        <button
-          className="pointer button"
-          onClick={(e) =>
-            setFormState({
-              ...formState,
-              login: !formState.login,
-            })
-          }
-        >
-          {formState.login
-            ? 'need to create an account?'
-            : 'already have an account?'}
-        </button>
+          {'login'}
+        </button> 
       </div>
     </div>
   );
 };
+
 
 export default Login;
