@@ -3,6 +3,8 @@ version: '3'
 services:
   db:
     image: postgres
+    volumes:
+      - data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -12,6 +14,7 @@ services:
     build: ./backend
     volumes:
       - /static:/app/backend/static
+      - data:/var/lib/postgresql/data
       - ./backend:/app/backend
     ports:
       - '8000:8000'
