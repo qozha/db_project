@@ -11,7 +11,7 @@ services:
   backend:
     build: ./backend
     volumes:
-      - ./backend/static:static
+      # - ./backend/static:static
       - ./backend:/app/backend
     ports:
       - '8000:8000'
@@ -43,8 +43,8 @@ services:
     #ports:
     #  - '80:80'
     #  - '443:443'
-    volumes:
-      - ./backend/static:/static
+    # volumes:
+    #   - ./backend/static:/static
     depends_on:
       - backend
       - front
