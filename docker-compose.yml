@@ -33,3 +33,17 @@ services:
     depends_on:
       - backend
     command: npm start
+
+  nginx:
+    build: ./nginx
+    image: nginx:latest
+    container_name: nginx
+    network_mode: host
+    #ports:
+    #  - '80:80'
+    #  - '443:443'
+    volumes:
+      - static:/static
+    depends_on:
+      - backend
+      - front
