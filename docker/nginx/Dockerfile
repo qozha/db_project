@@ -5,6 +5,7 @@ FROM node:13.12.0-alpine as build
 WORKDIR /app/front
 COPY ./front/package.json ./
 COPY ./front/package-lock.json ./
+RUN npm install -g npm@latest
 RUN npm ci --silent
 COPY ./front/ ./
 RUN npm run build
