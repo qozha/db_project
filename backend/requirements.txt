@@ -3,3 +3,5 @@ graphene==2.1.9
 graphene_django==2.15.0
 django-cors-headers
 psycopg2-binary
+uvicorn==0.15.0
+gunicorn
