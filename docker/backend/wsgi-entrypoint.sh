@@ -4,7 +4,7 @@ until cd /app/backend/server
 do
     echo "Waiting for server volume..."
 done
-
+chmod +x manage.py
 until ./manage.py migrate
 do
     echo "Waiting for db to be ready..."
