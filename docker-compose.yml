@@ -1,51 +1,31 @@
 version: '3'
 
 services:
-  db:
-    image: postgres
-    volumes:
-      - data:./backend/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    nginx: 
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./docker/nginx/Dockerfile
+        ports:
+            - 80:80
+        volumes:
+            - static_volume:/app/backend/server/django_static
+            - ./docker/nginx/development:/etc/nginx/conf.d
+        depends_on: 
+            - backend
+    backend:
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./docker/backend/Dockerfile
+        volumes:
+            
+        entrypoint: /app/docker/backend/wsgi-entrypoint.sh
+        volumes:
+            - .:/app
+            - static_volume:/app/backend/server/django_static
+        expose:
+            - 8000        
 
-  backend:
-    build: ./backend
-    volumes:
-      - /static:/app/backend/static
-      - data:./backend/var/lib/postgresql/data
-      - ./backend:/app/backend
-    ports:
-      - '8000:8000'
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 3; done; python manage.py runserver 0.0.0.0:8000'
-    depends_on:
-      - db
-
-  front:
-    build: ./front
-    volumes:
-      - ./front:/app/frontend
-      # One-way volume to use node_modules from inside image
-      - /app/front/node_modules
-    ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - backend
-    command: npm start
-
-  nginx:
-    build: ./nginx
-    image: nginx:latest
-    container_name: nginx
-    network_mode: host
-    #ports:
-    #  - '80:80'
-    #  - '443:443'
-    volumes:
-      - /static:/app/backend/static
-    depends_on:
-      - backend
-      - front
+volumes:
+    static_volume: {}
