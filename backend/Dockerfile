@@ -27,11 +27,11 @@ FROM python:3
 ENV PYTHONUNBUFFERED=1
 
 RUN pip install --upgrade pip
-
-COPY .backend/ .
+WORKDIR /app/backend
+COPY . .
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY ./backend/entrypoint.sh /
+COPY ./entrypoint.sh /
 ENTRYPOINT [ "sh", "/entrypoint.sh"]
